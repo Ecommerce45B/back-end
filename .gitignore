@@ -27,6 +27,7 @@ node_modules
 # Archivos de variables de entorno dotenv
 # Ignorar el archivo .env en la raíz
 .env
+.env copy
 
 # .env de entornos
 .env.test

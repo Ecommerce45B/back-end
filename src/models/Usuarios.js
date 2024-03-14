@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
         len: [3, 30],
       },
     },
-    avatar: {
+    picture: {
       type: DataTypes.STRING(500),
     },
     nombre: {
@@ -61,3 +61,4 @@ module.exports = (sequelize) => {
   });
   return Usuarios;
 };
+

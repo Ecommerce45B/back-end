@@ -1,10 +1,8 @@
-const { createDataFromJSON } = require("../config/usuariosServices");
 const { Usuarios, Votos, Roles } = require("../config/bd");
 const { Sequelize } = require("sequelize");
 
 const getUsuarios = async () => {
   try {
-    await createDataFromJSON();
 
     const usuarios = await Usuarios.findAll({
       include: [{ model: Roles }, { model: Votos }],
@@ -38,7 +36,13 @@ const getUsuariosByNombre = async (nombre) => {
       attributes: { exclude: ["idRol"] },
     });
 
-    return dbUsuarios;
+    // Filtrar usuarios únicos por ID
+    const uniqueUsuarios = dbUsuarios.filter(
+      (usuario, index, self) =>
+        index === self.findIndex((u) => u.id === usuario.id)
+    );
+
+    return uniqueUsuarios;
   } catch (error) {
     console.error("Error al buscar usuarios por nombre:", error);
     throw error;
@@ -62,7 +66,7 @@ const getUsuariosByEmail = async (email) => {
 const postNewUsuarios = async (
   email,
   password,
-  avatar,
+  picture,
   nombre,
   dirFacturacion = "",
   dirEnvio = "",
@@ -83,7 +87,7 @@ const postNewUsuarios = async (
       id: newUserId,
       email,
       password,
-      avatar,
+      picture,
       nombre,
       dirFacturacion,
       dirEnvio,

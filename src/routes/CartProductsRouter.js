@@ -1,9 +1,11 @@
 const { Router } = require("express")
 
-const { CreateProductCart } = require('../handlers/CartProductHandler')
+const { CreateProductCart, GetProductCart, DeleteProductsCart } = require('../handlers/CartProductHandler')
 
-const carProductRouter = Router();
+const carProductRouter = Router()
 
-carProductRouter.post("/new"     ,CreateProductCart);
+carProductRouter.post("/new", CreateProductCart)
+carProductRouter.get("/get/:idCar", GetProductCart)
+carProductRouter.delete('/delete/:idProduct', DeleteProductsCart)
 
-module.exports = carProductRouter;
+module.exports = carProductRouter
